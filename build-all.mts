@@ -15,6 +15,19 @@ const PER_ENTRY_CSS_IGNORE = "**/*.module.*".split(",").map((s) => s.trim());
 const GLOBAL_CSS_LIST = [path.resolve("src/index.css")];
 
 const targets: string[] = [
+  "grid",
+  "action-button",
+  "buttons",
+  "cards",
+  "dateinputs",
+  "dialogs",
+  "drawer",
+  "dropdowns",
+  "forms",
+  "header",
+  "loaders",
+  "rating",
+  "result",
   "todo",
   "solar-system",
   "pizzaz",

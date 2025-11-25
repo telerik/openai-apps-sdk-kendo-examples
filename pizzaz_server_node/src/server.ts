@@ -26,7 +26,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 
-type PizzazWidget = {
+type KendoWidget = {
   id: string;
   title: string;
   templateUri: string;
@@ -74,7 +74,7 @@ function readWidgetHtml(componentName: string): string {
   return htmlContents;
 }
 
-function widgetDescriptorMeta(widget: PizzazWidget) {
+function widgetDescriptorMeta(widget: KendoWidget) {
   return {
     "openai/outputTemplate": widget.templateUri,
     "openai/toolInvocation/invoking": widget.invoking,
@@ -84,63 +84,200 @@ function widgetDescriptorMeta(widget: PizzazWidget) {
   } as const;
 }
 
-function widgetInvocationMeta(widget: PizzazWidget) {
+function widgetInvocationMeta(widget: KendoWidget) {
   return {
     "openai/toolInvocation/invoking": widget.invoking,
     "openai/toolInvocation/invoked": widget.invoked,
   } as const;
 }
 
-const widgets: PizzazWidget[] = [
+const widgets: KendoWidget[] = [
   {
-    id: "pizza-map",
-    title: "Show Pizza Map",
-    templateUri: "ui://widget/pizza-map.html",
-    invoking: "Hand-tossing a map",
-    invoked: "Served a fresh map",
-    html: readWidgetHtml("pizzaz"),
-    responseText: "Rendered a pizza map!",
+    id: "action-button",
+    title: "Show Action Button",
+    templateUri: "ui://widget/action-button.html",
+    invoking: "Hand-tossing an action button",
+    invoked: "Served a fresh action button",
+    html: `
+<div id="action-button-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/action-button.css">
+<script type="module" src="http://localhost:4444/action-button.js"></script>
+    `.trim(),
+    responseText: "Rendered an action button!"
+  },
+ {
+    id: "kendo-grid",
+    title: "Show grid",
+    templateUri: "ui://widget/grid.html",
+    invoking: "Hand-tossing a grid",
+    invoked: "Served a fresh grid",
+    html: `
+<div id="grid-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/grid.css">
+<script type="module" src="http://localhost:4444/grid.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo grid!"
+  },
+   {
+    id: "kendo-buttons",
+    title: "Show  buttons",
+    templateUri: "ui://widget/buttons.html",
+    invoking: "Hand-tossing a buttons",
+    invoked: "Served a fresh buttons",
+    html: `
+<div id="buttons-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/buttons.css">
+<script type="module" src="http://localhost:4444/buttons.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo buttons!"
   },
   {
-    id: "pizza-carousel",
-    title: "Show Pizza Carousel",
-    templateUri: "ui://widget/pizza-carousel.html",
-    invoking: "Carousel some spots",
-    invoked: "Served a fresh carousel",
-    html: readWidgetHtml("pizzaz-carousel"),
-    responseText: "Rendered a pizza carousel!",
+    id: "kendo-form",
+    title: "Show  form",
+    templateUri: "ui://widget/form.html",
+    invoking: "Hand-tossing a form",
+    invoked: "Served a fresh form",
+    html: `
+<div id="form-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/form.css">
+<script type="module" src="http://localhost:4444/form.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo form!"
   },
-  {
-    id: "pizza-albums",
-    title: "Show Pizza Album",
-    templateUri: "ui://widget/pizza-albums.html",
-    invoking: "Hand-tossing an album",
-    invoked: "Served a fresh album",
-    html: readWidgetHtml("pizzaz-albums"),
-    responseText: "Rendered a pizza album!",
+    {
+    id: "kendo-cards",
+    title: "Show  cards",
+    templateUri: "ui://widget/cards.html",
+    invoking: "Hand-tossing a cards",
+    invoked: "Served a fresh cards",
+    html: `
+<div id="cards-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/cards.css">
+<script type="module" src="http://localhost:4444/cards.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo cards!"
   },
-  {
-    id: "pizza-list",
-    title: "Show Pizza List",
-    templateUri: "ui://widget/pizza-list.html",
-    invoking: "Hand-tossing a list",
-    invoked: "Served a fresh list",
-    html: readWidgetHtml("pizzaz-list"),
-    responseText: "Rendered a pizza list!",
+    {
+    id: "kendo-dateinputs",
+    title: "Show  dateinputs",
+    templateUri: "ui://widget/dateinputs.html",
+    invoking: "Hand-tossing a dateinputs",
+    invoked: "Served a fresh dateinputs",
+    html: `
+<div id="dateinputs-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/dateinputs.css">
+<script type="module" src="http://localhost:4444/dateinputs.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo dateinputs!"
   },
-  {
-    id: "pizza-shop",
-    title: "Open Pizzaz Shop",
-    templateUri: "ui://widget/pizza-shop.html",
-    invoking: "Opening the shop",
-    invoked: "Shop opened",
-    html: readWidgetHtml("pizzaz-shop"),
-    responseText: "Rendered the Pizzaz shop!",
+     {
+    id: "kendo-dropdowns",
+    title: "Show  dropdowns",
+    templateUri: "ui://widget/dropdowns.html",
+    invoking: "Hand-tossing a dropdowns",
+    invoked: "Served a fresh dropdowns",
+    html: `
+<div id="dropdowns-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/dropdowns.css">
+<script type="module" src="http://localhost:4444/dropdowns.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo dropdowns!"
   },
+       {
+    id: "kendo-loaders",
+    title: "Show  loaders",
+    templateUri: "ui://widget/loaders.html",
+    invoking: "Hand-tossing a loaders",
+    invoked: "Served a fresh loaders",
+    html: `
+<div id="loaders-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/loaders.css">
+<script type="module" src="http://localhost:4444/loaders.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo loaders!"
+  },
+   {
+    id: "kendo-dialogs",
+    title: "Show  dialogs",
+    templateUri: "ui://widget/dialogs.html",
+    invoking: "Hand-tossing a dialogs",
+    invoked: "Served a fresh dialogs",
+    html: `
+<div id="dialogs-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/dialogs.css">
+<script type="module" src="http://localhost:4444/dialogs.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo dialogs!"
+  },
+   {
+    id: "kendo-drawer",
+    title: "Show  drawer",
+    templateUri: "ui://widget/drawer.html",
+    invoking: "Hand-tossing a drawer",
+    invoked: "Served a fresh drawer",
+    html: `
+<div id="drawer-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/drawer.css">
+<script type="module" src="http://localhost:4444/drawer.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo drawer!"
+  },
+     {
+    id: "kendo-rating",
+    title: "Show  rating",
+    templateUri: "ui://widget/rating.html",
+    invoking: "Hand-tossing a rating",
+    invoked: "Served a fresh rating",
+    html: `
+<div id="rating-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/rating.css">
+<script type="module" src="http://localhost:4444/rating.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo rating!"
+  },
+       {
+    id: "kendo-result",
+    title: "Show  result",
+    templateUri: "ui://widget/result.html",
+    invoking: "Hand-tossing a result",
+    invoked: "Served a fresh result",
+    html: `
+<div id="result-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/result.css">
+<script type="module" src="http://localhost:4444/result.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo result!"
+  },
+   {
+    id: "kendo-header",
+    title: "Show  header",
+    templateUri: "ui://widget/header.html",
+    invoking: "Hand-tossing a header",
+    invoked: "Served a fresh header",
+    html: `
+<div id="header-root"></div>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/12.0.0/default/default-ocean-blue-a11y.css">
+<link rel="stylesheet" href="http://localhost:4444/header.css">
+<script type="module" src="http://localhost:4444/header.js"></script>
+    `.trim(),
+    responseText: "Rendered a kendo header!"
+  }
 ];
 
-const widgetsById = new Map<string, PizzazWidget>();
-const widgetsByUri = new Map<string, PizzazWidget>();
+const widgetsById = new Map<string, KendoWidget>();
+const widgetsByUri = new Map<string, KendoWidget>();
 
 widgets.forEach((widget) => {
   widgetsById.set(widget.id, widget);
@@ -150,17 +287,63 @@ widgets.forEach((widget) => {
 const toolInputSchema = {
   type: "object",
   properties: {
-    pizzaTopping: {
+    title: {
       type: "string",
-      description: "Topping to mention when rendering the widget.",
+      description: "Topping to mention when rendering the widget."
     },
+    items: {
+      type: "array",
+      items: {
+        type: "object"
+      },
+      description: "List of items to show in the Kendo Grid.",
+      default: []
+    },
+    cards: {
+      type: "array",
+      items: {
+        type: "object"
+      },
+      description: "List of cards to show with Kendo Cards. Each items should have a title, image (URL), description, and button text.",
+      default: []
+    },
+    firstName: {
+      type: "string",
+      description: "First name of the user."
+    },
+    lastName: {
+      type: "string",
+      description: "Last name of the user."
+    },
+    email: {
+      type: "string",
+      description: "Email address of the user."
+    },
+    phone: {
+      type: "string",
+      description: "Phone number of the user."
+    },
+    purpose: {
+      type: "array",
+      items: {
+        type: "string"
+      },
+      description: "List of purposes for contacting the user."
+    }
   },
-  required: ["pizzaTopping"],
-  additionalProperties: false,
+  required: ["title"],
+  additionalProperties: false
 } as const;
 
 const toolInputParser = z.object({
-  pizzaTopping: z.string(),
+  title: z.string(),
+  items: z.array(z.any()).optional().default([]),
+  cards: z.array(z.any()).optional().default([]),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  purpose: z.array(z.string()).optional().default([])
 });
 
 const tools: Tool[] = widgets.map((widget) => ({
@@ -259,22 +442,107 @@ function createPizzazServer(): Server {
         throw new Error(`Unknown tool: ${request.params.name}`);
       }
 
-      const args = toolInputParser.parse(request.params.arguments ?? {});
+    //   const args = toolInputParser.parse(request.params.arguments ?? {});
 
-      return {
-        content: [
-          {
-            type: "text",
-            text: widget.responseText,
-          },
-        ],
-        structuredContent: {
-          pizzaTopping: args.pizzaTopping,
-        },
-        _meta: widgetInvocationMeta(widget),
-      };
+    //   return {
+    //     content: [
+    //       {
+    //         type: "text",
+    //         text: widget.responseText,
+    //       },
+    //     ],
+    //     structuredContent: {
+    //       pizzaTopping: args.pizzaTopping,
+    //     },
+    //     _meta: widgetInvocationMeta(widget),
+    //   };
+    // }
+
+    const args = toolInputParser.parse(request.params.arguments ?? {});
+
+    switch (widget.id) {
+      case "kendo-grid":
+         return {
+            content: [
+              {
+                type: "text",
+                text: widget.responseText
+              }
+            ],
+            structuredContent: {
+              title: args.title,
+              items: args.items
+            },
+            _meta: widgetDescriptorMeta(widget)
+          };
+      case "kendo-cards":
+         return {
+            content: [
+              {
+                type: "text",
+                text: widget.responseText
+              }
+            ],
+            structuredContent: {
+              title: args.title,
+              cards: args.cards
+            },
+            _meta: widgetDescriptorMeta(widget)
+          };
+      case "kendo-rating":
+         return {
+            content: [
+              {
+                type: "text",
+                text: widget.responseText
+              }
+            ],
+            structuredContent: {
+              title: args.title
+            },
+            _meta: widgetDescriptorMeta(widget)
+          };
+      case "kendo-result":
+          return {
+              content: [
+                {
+                  type: "text",
+                  text: widget.responseText
+                }
+              ],
+              structuredContent: {
+                title: args.title,
+                firstName: args.firstName,
+                lastName: args.lastName,
+                email: args.email,
+                phone: args.phone,
+                purpose: args.purpose
+              },
+              _meta: widgetDescriptorMeta(widget)
+            };
+      case "action-button":
+      case "kendo-buttons":
+      case "kendo-form":
+
+      case "kendo-dateinputs":
+      case "kendo-dropdowns":
+      case "kendo-loaders":
+      case "kendo-dialogs":
+      case "kendo-drawer":
+      case "kendo-header":
+        return {
+          content: [
+            {
+              type: "text",
+              text: widget.responseText
+            }
+          ],
+          _meta: widgetDescriptorMeta(widget)
+        };
+      default:
+        throw new Error(`Unhandled tool: ${widget.id}`);
     }
-  );
+  });
 
   return server;
 }
